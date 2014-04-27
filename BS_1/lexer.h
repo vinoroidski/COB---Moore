@@ -8,27 +8,23 @@
 #ifndef LEXER_H
 #define	LEXER_H
 
-#include <algorithm>
-#include <vector>
 #include <string>
-#include <iostream>
 #include <fstream>
+#include <vector>
+
+#include "token.h"
 
 using namespace std;
 
 class lexer {
 public:
     lexer();
-    lexer(const lexer& orig);
     virtual ~lexer();
     
-    void readFile(string);
-    void cleanFile();
-    void writeFile(string);
+    void tokenize(string, string);
     
 private:
-    vector<char> input;
-    vector<char> output;
+    vector<token> tokenStore;
 
 };
 

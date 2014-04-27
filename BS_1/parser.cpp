@@ -10,9 +10,6 @@
 parser::parser() {
 }
 
-parser::parser(const parser& orig) {
-}
-
 parser::~parser() {
 }
 
@@ -30,7 +27,10 @@ void parser::parse(string inputFilePath, string outputFilePath) {
 
         if (expression.size() > 0) {
             
-            myFileOut << result(expression) << '\n';
+            if(op(expression) != 5) 
+                myFileOut << result(expression) << '\n';
+            else
+                result(expression);
             
         }
     }
@@ -40,19 +40,19 @@ void parser::parse(string inputFilePath, string outputFilePath) {
     
 }
 
-int parser::addition(int a, int b) {
+float parser::addition(float a, float b) {
     return (a + b);   
 }
 
-int parser::subtraction(int a, int b) {
+float parser::subtraction(float a, float b) {
     return (a - b);
 }
 
-int parser::multiplication(int a, int b) {
+float parser::multiplication(float a, float b) {
     return (a * b);
 }
 
-int parser::division(int a, int b) {
+float parser::division(float a, float b) {
     return (a / b);
 }
 
@@ -73,6 +73,9 @@ int parser::op(string a) {
                
             case '/'    :   return 4;
                             break;
+                            
+            case '='   :   return 5;
+                            break;
                 
             default     :   break;
                             
@@ -89,7 +92,7 @@ vector<string> parser::factors(string a) {
     
     for(int i = 0; i < a.size(); i++) {
         
-        if(a.at(i) != '+' && a.at(i) != '-' && a.at(i) != '*' && a.at(i) != '/') {
+        if(a.at(i) != '+' && a.at(i) != '-' && a.at(i) != '*' && a.at(i) != '/' && a.at(i) != '=') {
             tmp.push_back(a.at(i));
         } else {
             result.push_back(tmp);
@@ -107,38 +110,53 @@ vector<string> parser::factors(string a) {
     
 }
 
-int parser::result(string a) {
+float parser::result(string a) {
     
-    int result;
+    float result = -1;
     
     stringstream str;
-    vector<int> factor;
+    vector<float> factor;
     
     vector<string> numbers;
     int operat;
-    int tmp;
+    float tmp;
     
-    numbers = factors(a);
     operat = op(a);
+    numbers = factors(a);
     
-    for(int i = 0; i < numbers.size(); i++) {
-        str << numbers.at(i);
-        str >> tmp;
-        
-        factor.push_back(tmp);
-        
-        str << "";
-        str.clear();
-    }
+    if(operat != 5) { 
     
-    if(operat == 1) {
-        result = addition(factor.at(0), factor.at(1));
-    } else if (operat == 2) {
-        result = subtraction(factor.at(0), factor.at(1));
-    } else if (operat == 3) {
-        result = multiplication(factor.at(0), factor.at(1));
-    } else if (operat == 4) {
-        result = division(factor.at(0), factor.at(1));
+        for(int i = 0; i < numbers.size(); i++) {
+            
+            if(store.find(numbers.at(i)) != store.end())
+                str << store.at(numbers.at(i));
+                
+            else 
+                str << numbers.at(i);
+            
+            str >> tmp;
+
+            factor.push_back(tmp);
+
+            str << "";
+            str.clear();
+            
+        }
+
+        if(operat == 1) {
+            result = addition(factor.at(0), factor.at(1));
+        } else if (operat == 2) {
+            result = subtraction(factor.at(0), factor.at(1));
+        } else if (operat == 3) {
+            result = multiplication(factor.at(0), factor.at(1));
+        } else if (operat == 4) {
+            result = division(factor.at(0), factor.at(1));
+        }
+    
+    } else {
+        
+        store[numbers.at(0)] = numbers.at(1);
+        
     }
     
     return result;

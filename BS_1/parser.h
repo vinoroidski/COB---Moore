@@ -12,29 +12,30 @@
 #include <sstream>
 #include <string>
 #include <fstream>
+#include <map>
 
 using namespace std;
 
 class parser {
 public:
     parser();
-    parser(const parser& orig);
     virtual ~parser();
     
     void parse(string, string);
     
 private:
     string expression;
-
-    int addition(int, int);
-    int subtraction(int, int);
-    int multiplication(int, int);
-    int division(int, int);
+    map<string, string> store;
+    
+    float addition(float, float);
+    float subtraction(float, float);
+    float multiplication(float, float);
+    float division(float, float);
     
     int op(string);
     vector<string> factors(string);
     
-    int result(string);
+    float result(string);
     
 };
 

@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 
+#include "screener.h"
 #include "lexer.h"
 #include "parser.h"
 
@@ -21,14 +22,17 @@ int main(int argc, char** argv) {
 
     cout << "Hello World" << endl;
     
+    screener testScreener;
     lexer testLexer;
     parser testParser;
     
-    testLexer.readFile("/cygdrive/d/Tools/BS/BS_1/RichtigBS.txt");
-    testLexer.cleanFile();
-    testLexer.writeFile("/cygdrive/d/Tools/BS/BS_1/OutputBS.txt");
+    testScreener.readFile("/cygdrive/d/Tools/BS/BS_1/RichtigBS.txt");
+    testScreener.cleanFile();
+    testScreener.writeFile("/cygdrive/d/Tools/BS/BS_1/OutputBS.txt");
     
-    testParser.parse("/cygdrive/d/Tools/BS/BS_1/OutputBS.txt", "/cygdrive/d/Tools/BS/BS_1/ParsedBS.txt");
+    //testLexer.tokenize("/cygdrive/d/Tools/BS/BS_1/OutputBS.txt", "/cygdrive/d/Tools/BS/BS_1/TokensBS.txt")
+    
+    //testParser.parse("/cygdrive/d/Tools/BS/BS_1/TokensBS.txt", "/cygdrive/d/Tools/BS/BS_1/ParsedBS.txt");
     
     return 0;
 
