@@ -37,8 +37,17 @@ void lexer::readFile(string filePath) {
 }
 
 void lexer::cleanFile() {
-
+    
+    vector<char> store;
+    
     for (vector<char>::iterator it = input.begin(); it != input.end(); it++) {
+
+        if (*it != '\r')
+            store.push_back(*it);
+
+    }
+
+    for (vector<char>::iterator it = store.begin(); it != store.end(); it++) {
 
         if (*it == '/') {
 
@@ -48,13 +57,13 @@ void lexer::cleanFile() {
 
                 it++;
 
-                for (vector<char>::iterator it2 = it; it2 != input.end(); it2++) {
+                for (vector<char>::iterator it2 = it; it2 != store.end(); it2++) {
 
                     // NEED FIX: what if there is only one line!
 
                     if (*it2 == '\n') {
 
-                        it = it2 + 1;
+                        it = it2;
                         break;
 
                     }
@@ -65,7 +74,7 @@ void lexer::cleanFile() {
 
                 it++;
 
-                for (vector<char>::iterator it3 = it; it3 != input.end(); it3++) {
+                for (vector<char>::iterator it3 = it; it3 != store.end(); it3++) {
 
                     if (*it3 == '*') {
 
@@ -74,7 +83,7 @@ void lexer::cleanFile() {
                         if (*it3 == '/') {
 
                             it = it3 + 1;
-                            it3 = input.end();
+                            it3 = store.end();
                             break;
 
                         }
@@ -86,13 +95,14 @@ void lexer::cleanFile() {
             } else {
 
                 output.push_back('/');
-                output.push_back(*it);
+                if(*it == ' ') it--;
+                else output.push_back(*it);
 
             }
 
         } else if (*it == ' ') {
 
-            for (vector<char>::iterator it4 = it; it4 != input.end(); it4++) {
+            for (vector<char>::iterator it4 = it; it4 != store.end(); it4++) {
 
                 if (*it4 != ' ') {
 
@@ -103,32 +113,18 @@ void lexer::cleanFile() {
 
             }
 
-        } else if (*it == '\r') {
-
-            for (vector<char>::iterator it5 = it; it5 != input.end(); it5++) {
-
-                if (*it5 != '\r') {
-
-                    it = it5 - 1;
-                    break;
-
-                }
-
-            }
-
         } else if (*it == '\n') {
-
-            for (vector<char>::iterator it6 = it; it6 != input.end(); it6++) {
-
-                if (*it6 != '\n') {
-
-                    it = it6 - 1;
-                    break;
-
-                }
-
-            }
-
+            
+            it++;
+            
+            if(*it == '\n') 
+                it--;
+            else {
+                output.push_back('\n');
+                it--;
+            } 
+                
+                
         } else {
 
             output.push_back(*it);
@@ -136,6 +132,30 @@ void lexer::cleanFile() {
         }
 
     }
+    
+    store.clear();
+    for(vector<char>::iterator it = output.begin(); it != output.end(); it++) {
+        
+        if(*it == '\n') {
+            
+            it++;
+            
+            if(*it == '\n')
+                it--;
+            else {
+                store.push_back('\n');
+                store.push_back(*it);
+            }
+            
+        } else {
+            store.push_back(*it);
+        }
+        
+    }
+    
+    output.clear();
+    for(vector<char>::iterator it = store.begin(); it != store.end(); it++) 
+        output.push_back(*it);
 
 }
 

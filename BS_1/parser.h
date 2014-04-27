@@ -18,15 +18,30 @@ public:
     parser(const parser& orig);
     virtual ~parser();
     
-    void read();
+    //void read();
     int add (int x, int y);
     int sub (int x, int y);
     int mul (int x, int y);
     int div (int x, int y);
     
+    void parse(string, string);
+    
 private:
-    vector<char> input;
-    vector<char> output;
+    //vector<char> input;
+    //vector<char> output;
+    
+    string expression;
+    map<string, string> store;
+    
+    float addition(float, float);
+    float subtraction(float, float);
+    float multiplication(float, float);
+    float division(float, float);
+    
+    int op(string);
+    vector<string> factors(string);
+    
+    float result(string);
 
 };
 
