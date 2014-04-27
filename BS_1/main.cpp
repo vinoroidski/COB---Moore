@@ -10,6 +10,7 @@
 #include <string>
 
 #include "lexer.h"
+#include "parser.h"
 
 using namespace std;
 
@@ -21,10 +22,13 @@ int main(int argc, char** argv) {
     cout << "Hello World" << endl;
     
     lexer testLexer;
+    parser testParser;
     
-    testLexer.readFile("/cygdrive/c/Users/Vinay/Desktop/RichtigBS.txt");
+    testLexer.readFile("/cygdrive/d/Tools/BS/BS_1/RichtigBS.txt");
     testLexer.cleanFile();
-    testLexer.writeFile("/cygdrive/c/Users/Vinay/Desktop/OutputBS.txt");
+    testLexer.writeFile("/cygdrive/d/Tools/BS/BS_1/OutputBS.txt");
+    
+    testParser.parse("/cygdrive/d/Tools/BS/BS_1/OutputBS.txt", "/cygdrive/d/Tools/BS/BS_1/ParsedBS.txt");
     
     return 0;
 

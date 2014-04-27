@@ -9,6 +9,9 @@
 #define	PARSER_H
 
 #include <vector>
+#include <sstream>
+#include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -18,16 +21,21 @@ public:
     parser(const parser& orig);
     virtual ~parser();
     
-    void read();
-    int add (int x, int y);
-    int sub (int x, int y);
-    int mul (int x, int y);
-    int div (int x, int y);
+    void parse(string, string);
     
 private:
-    vector<char> input;
-    vector<char> output;
+    string expression;
 
+    int addition(int, int);
+    int subtraction(int, int);
+    int multiplication(int, int);
+    int division(int, int);
+    
+    int op(string);
+    vector<string> factors(string);
+    
+    int result(string);
+    
 };
 
 #endif	/* PARSER_H */
