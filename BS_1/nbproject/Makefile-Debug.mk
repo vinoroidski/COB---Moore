@@ -37,7 +37,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/lexer.o \
 	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/parser.o
+	${OBJECTDIR}/parser.o \
+	${OBJECTDIR}/screener.o \
+	${OBJECTDIR}/token.o
 
 
 # C Compiler Flags
@@ -78,6 +80,16 @@ ${OBJECTDIR}/parser.o: parser.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser.o parser.cpp
+
+${OBJECTDIR}/screener.o: screener.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/screener.o screener.cpp
+
+${OBJECTDIR}/token.o: token.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/token.o token.cpp
 
 # Subprojects
 .build-subprojects:

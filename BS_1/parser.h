@@ -9,27 +9,37 @@
 #define	PARSER_H
 
 #include <vector>
+#include <sstream>
+#include <string>
+#include <fstream>
+#include <map>
 
 using namespace std;
 
 class parser {
 public:
     parser();
-    parser(const parser& orig);
     virtual ~parser();
     
+<<<<<<< HEAD
     //void read();
     int add (int x, int y);
     int sub (int x, int y);
     int mul (int x, int y);
     int div (int x, int y);
+=======
+    void parse(string, string);
+>>>>>>> origin/HEAD
     
     void parse(string, string);
     
 private:
+<<<<<<< HEAD
     //vector<char> input;
     //vector<char> output;
     
+=======
+>>>>>>> origin/HEAD
     string expression;
     map<string, string> store;
     
@@ -42,7 +52,11 @@ private:
     vector<string> factors(string);
     
     float result(string);
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> origin/HEAD
 };
 
 #endif	/* PARSER_H */

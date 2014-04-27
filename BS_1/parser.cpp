@@ -10,9 +10,6 @@
 parser::parser() {
 }
 
-parser::parser(const parser& orig) {
-}
-
 parser::~parser() {
 }
 
@@ -47,6 +44,40 @@ float parser::addition(float a, float b) {
     return (a + b);   
 }
 
+<<<<<<< HEAD
+void parser::parse(string inputFilePath, string outputFilePath) {
+    
+    ifstream myFile;
+    ofstream myFileOut;
+    
+    myFile.open(inputFilePath.c_str());
+    myFileOut.open(outputFilePath.c_str());
+    
+    while (!myFile.eof()) {
+
+        myFile >> expression;
+
+        if (expression.size() > 0) {
+            
+            if(op(expression) != 5) 
+                myFileOut << result(expression) << '\n';
+            else
+                result(expression);
+            
+        }
+    }
+
+    myFile.close();
+    myFileOut.close();
+    
+}
+
+float parser::addition(float a, float b) {
+    return (a + b);   
+}
+
+=======
+>>>>>>> origin/HEAD
 float parser::subtraction(float a, float b) {
     return (a - b);
 }
@@ -109,7 +140,10 @@ vector<string> parser::factors(string a) {
         
     }
     
+<<<<<<< HEAD
     
+=======
+>>>>>>> origin/HEAD
     return result;
     
 }
